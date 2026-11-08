@@ -39,7 +39,7 @@ const StatsScreenWithLayout = withAppLayout(StatsScreen);
 const HistoryScreenWithLayout = withAppLayout(HistoryScreen);
 
 const getTabBarIcon = (routeName, focused) => {
-  if (routeName === 'Home') {
+  if (routeName === 'Inicio') {
     return focused ? 'home' : 'home-outline';
   }
   else if (routeName === 'Stats') {
@@ -49,7 +49,7 @@ const getTabBarIcon = (routeName, focused) => {
     return focused ? 'time' : 'time-outline';
   }
 
-  return 'ellipse-outline'; // Default icon if route name doesn't match
+  return 'ellipse-outline'; // Icono por defecto si no coincide con ninguna ruta
 }
 
 export default function App() {
@@ -72,7 +72,7 @@ export default function App() {
           },
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreenWithLayout} />
+        <Tab.Screen name="Inicio" component={HomeScreenWithLayout} />
         <Tab.Screen name="Historial" component={HistoryScreenWithLayout} />
         <Tab.Screen name="Stats" component={StatsScreenWithLayout} />
       </Tab.Navigator>
