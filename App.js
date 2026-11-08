@@ -45,7 +45,7 @@ const getTabBarIcon = (routeName, focused) => {
   else if (routeName === 'Stats') {
     return focused ? 'stats-chart' : 'stats-chart-outline';
   }
-  else if (routeName === 'History') {
+  else if (routeName === 'Historial') {
     return focused ? 'time' : 'time-outline';
   }
 
@@ -67,14 +67,13 @@ export default function App() {
             borderTopWidth: 0,
             shadowOpacity: 0, // Para iOS
           },
-          // tabBarActiveBackgroundColor: '#EDECF7',
           tabBarIcon: ({ focused, color, size }) => {
             return <Ionicons name={getTabBarIcon(route.name, focused)} size={size || 24} color={color} />;
           },
         })}
       >
         <Tab.Screen name="Home" component={HomeScreenWithLayout} />
-        <Tab.Screen name="History" component={HistoryScreenWithLayout} />
+        <Tab.Screen name="Historial" component={HistoryScreenWithLayout} />
         <Tab.Screen name="Stats" component={StatsScreenWithLayout} />
       </Tab.Navigator>
     </NavigationContainer>
