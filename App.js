@@ -1,5 +1,6 @@
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -10,8 +11,11 @@ import AppLayout from './components/AppLayout';
 import HomeScreen from './screens/HomeScreen';
 import StatsScreen from './screens/StatsScreen';
 import HistoryScreen from './screens/HistoryScreen';
+import AddMoodScreen from './screens/AddMoodScreen';
+import DetailScreen from './screens/EntryDetailScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -37,6 +41,8 @@ function withAppLayout(Component) {
 const HomeScreenWithLayout = withAppLayout(HomeScreen);
 const StatsScreenWithLayout = withAppLayout(StatsScreen);
 const HistoryScreenWithLayout = withAppLayout(HistoryScreen);
+const AddMoodScreenWithLayout = withAppLayout(AddMoodScreen);
+const DetailScreenWithLayout = withAppLayout(DetailScreen);
 
 const getTabBarIcon = (routeName, focused) => {
   if (routeName === 'Inicio') {
@@ -52,6 +58,16 @@ const getTabBarIcon = (routeName, focused) => {
   return 'ellipse-outline'; // Icono por defecto si no coincide con ninguna ruta
 }
 
+function HomeStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={HomeScreenWithLayout} />
+      <Stack.Screen name="AddMood" component={AddMoodScreenWithLayout} />
+      <Stack.Screen name="Detail" component={DetailScreenWithLayout} />
+    </Stack.Navigator>
+  )
+}
+
 export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
@@ -62,7 +78,7 @@ export default function App() {
           animation: 'shift',
           tabBarLabelPosition: 'beside-icon',
           tabBarStyle: {
-            height: 86,
+            height: 72,
             elevation: 0,
             borderTopWidth: 0,
             shadowOpacity: 0, // Para iOS
@@ -72,7 +88,7 @@ export default function App() {
           },
         })}
       >
-        <Tab.Screen name="Inicio" component={HomeScreenWithLayout} />
+        <Tab.Screen name="Inicio" component={HomeStack} />
         <Tab.Screen name="Historial" component={HistoryScreenWithLayout} />
         <Tab.Screen name="Stats" component={StatsScreenWithLayout} />
       </Tab.Navigator>

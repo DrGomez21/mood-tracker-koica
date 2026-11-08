@@ -3,7 +3,7 @@ import MainMoodCard from '../components/MainMoodCard';
 import MoodCard from '../components/MoodCard';
 import { Ionicons } from '@expo/vector-icons';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 
   const data = [
     {
@@ -66,7 +66,7 @@ const HomeScreen = () => {
 
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => console.log('FAB presionado')}
+        onPress={() => navigation.navigate('AddMood')}
         activeOpacity={0.8}
       >
         <Ionicons name="add" size={32} color="#FFFFFF" />

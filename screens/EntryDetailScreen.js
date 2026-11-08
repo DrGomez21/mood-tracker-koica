@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const HomeScreen = () => {
+const DetailScreen = () => {
   return (
     <View style={styles.container}>
       <Text>Hola, soy el Detalle de la entrada</Text>
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default DetailScreen;
