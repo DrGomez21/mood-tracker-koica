@@ -8,19 +8,22 @@ import {
 
 import { useTheme } from '@react-navigation/native';
 
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 export default function AppLayout({ children }) {
   const { colors } = useTheme();
 
   return (
-    <View style={styles.screen}>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.screen}>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor={colors.background}
+        />
 
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={colors.background}
-      />
-
-      <View style={styles.container}>{children}</View>
-    </View>
+        <View style={styles.container}>{children}</View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -31,5 +34,9 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
