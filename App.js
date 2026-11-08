@@ -1,20 +1,82 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { Ionicons } from '@expo/vector-icons';
+
+// Layout
+import AppLayout from './components/AppLayout';
+
+// Pantallas
+import HomeScreen from './screens/HomeScreen';
+import StatsScreen from './screens/StatsScreen';
+import HistoryScreen from './screens/HistoryScreen';
+
+const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#F8F7F2',
+    primary: '#7363BF',
+    text: '#1B1B1F',
+    onPrimary: '#FFFFFF',
+  }
+};
+
+function withAppLayout(Component) {
+  return function WrappedComponent(props) {
+    return (
+      <AppLayout>
+        <Component {...props} />
+      </AppLayout>
+    );
+  }
+}
+
+const HomeScreenWithLayout = withAppLayout(HomeScreen);
+const StatsScreenWithLayout = withAppLayout(StatsScreen);
+const HistoryScreenWithLayout = withAppLayout(HistoryScreen);
+
+const getTabBarIcon = (routeName, focused) => {
+  if (routeName === 'Home') {
+    return focused ? 'home' : 'home-outline';
+  }
+  else if (routeName === 'Stats') {
+    return focused ? 'stats-chart' : 'stats-chart-outline';
+  }
+  else if (routeName === 'History') {
+    return focused ? 'time' : 'time-outline';
+  }
+
+  return 'ellipse-outline'; // Default icon if route name doesn't match
+}
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer theme={MyTheme}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          TabBarActiveTintColor: MyTheme.colors.primary,
+          animation: 'shift',
+          tabBarLabelPosition: 'beside-icon',
+          tabBarStyle: {
+            height: 86,
+            elevation: 0,
+            borderTopWidth: 0,
+            shadowOpacity: 0, // Para iOS
+          },
+          // tabBarActiveBackgroundColor: '#EDECF7',
+          tabBarIcon: ({ focused, color, size }) => {
+            return <Ionicons name={getTabBarIcon(route.name, focused)} size={size || 24} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen name="Home" component={HomeScreenWithLayout} />
+        <Tab.Screen name="History" component={HistoryScreenWithLayout} />
+        <Tab.Screen name="Stats" component={StatsScreenWithLayout} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
