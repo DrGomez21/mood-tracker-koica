@@ -1,8 +1,40 @@
 import { View, Text, StyleSheet, Pressable, FlatList, TouchableOpacity } from 'react-native';
 import MainMoodCard from '../components/MainMoodCard';
+import MoodCard from '../components/MoodCard';
 import { Ionicons } from '@expo/vector-icons';
 
 const HomeScreen = () => {
+
+  const data = [
+    {
+      id: '1',
+      mood: 'Neutral',
+      date: '7 nov · 14:30',
+      activities: ['Trabajo', 'Estudio'],
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+    {
+      id: '2',
+      mood: 'Mal',
+      date: '6 nov · 14:30',
+      activities: ['Trabajo'],
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+    {
+      id: '3',
+      mood: 'Excelente',
+      date: '5 nov · 14:30',
+      activities: ['Trabajo', 'Ocio', 'Deporte'],
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+    {
+      id: '4',
+      mood: 'Calmado',
+      date: '4 nov · 14:30',
+      activities: ['Trabajo', 'Amigos'],
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    },
+  ]
 
   return (
     <View style={styles.container}>
@@ -22,13 +54,14 @@ const HomeScreen = () => {
       </View>
 
       <FlatList
-        data={[{ title: 'Registro 1', id: '1' }, { title: 'Registro 2', id: '2' }, { title: 'Registro 3', id: '3' }]}
+        data={data}
         renderItem={({ item }) => (
-          <View>
-            <Text>{item.title}</Text>
+          <View style={{ marginBottom: 16 }}>
+            <MoodCard mood={item} />
           </View>
         )}
         keyExtractor={(item) => item.id}
+        style={{ width: '100%' }}
       />
 
       <TouchableOpacity
@@ -88,7 +121,7 @@ const styles = StyleSheet.create({
     color: '#7363BF',
   },
 
-   fab: {
+  fab: {
     position: 'absolute',
     width: 58, // Tamaño estándar de un FAB
     height: 58,
